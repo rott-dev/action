@@ -6,14 +6,14 @@ This is a working progress action that will run Rott.dev on your codebase.
 
 ```yaml
 - name: rott-dev
-  uses: rott-dev/action@0.5.1
+  uses: rott-dev/action@v1
 ```
 
 ## Advanced
 
 ```yaml
 - name: rott-dev
-  uses: rott-dev/action@0.5.1
+  uses: rott-dev/action@v1
   with:
     organization: rott-dev
     repository: sample-shared-rules
