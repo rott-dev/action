@@ -1,0 +1,37 @@
+name: "rott.dev"
+description: "Repository Scan Inside GitHub Actions."
+author: "The rott.dev team <hello@rott.dev>"
+inputs:
+  github_token:
+    description: "The GitHub API token."
+    required: true
+    default: ""
+  rott_token:
+    description: "The rott.dev JWT token."
+    required: true
+    default: ""
+  organization:
+    description: "The organization to scan."
+    required: false
+    default: ${{ github.repository_owner }}
+  repository:
+    description: "The repository with shared rules."
+    required: false
+    default: "rott-dev"
+  rule_path:
+    description: "The path of the rule file."
+    required: false
+    default: "rott.json"
+  branch:
+    description: "The branch of the rule file."
+    required: false
+    default: "main"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
+
+# https://actions-cool.github.io/github-action-branding/
+branding:
+  icon: "crosshair"
+  color: "red"

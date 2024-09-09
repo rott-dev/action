@@ -1,0 +1,32 @@
+name: Release new action version
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+      - name: Set version on package.json
+        run: |
+          sed -i "s/VERSION/${{ steps.tag.outputs.tag }}/g" ./package.json
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Add to git
+        run: git add -A
+      - uses: tgymnich/publish-github-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

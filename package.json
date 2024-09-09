@@ -1,0 +1,46 @@
+{
+  "name": "@rott-dev/action",
+  "version": "VERSION",
+  "description": "GitHub Action for Rott AI - Standardize your codebase with Rott AI",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && ncc build --source-map --license licenses.txt -o dist/ src/main.ts",
+    "start": "npx tsx src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rott-dev/action.git"
+  },
+  "keywords": [
+    "actions",
+    "github",
+    "rott-dev",
+    "security",
+    "pullrequests",
+    "annotations",
+    "suggestions",
+    "deps",
+    "dependencies",
+    "supply",
+    "chain",
+    "security"
+  ],
+  "type": "module",
+  "private": true,
+  "author": "The rott.dev team <hello@rott.dev>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/rott-dev/action/issues"
+  },
+  "homepage": "https://github.com/rott-dev/action#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@vercel/ncc": "^0.38.1",
+    "typescript": "^5.5.4"
+  }
+}
