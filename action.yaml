@@ -4,11 +4,11 @@ author: "The rott.dev team <hello@rott.dev>"
 inputs:
   github_token:
     description: "The GitHub API token."
-    required: true
+    required: false
     default: ""
   rott_token:
     description: "The rott.dev JWT token."
-    required: true
+    required: false
     default: ""
   organization:
     description: "The organization to scan."
