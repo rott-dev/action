@@ -2,7 +2,7 @@
  * The entrypoint for the action.
  */
 import * as core from '@actions/core'
-import { getOctokit } from '@actions/github'
+import { getOctokit, context, github } from '@actions/github'
 import fs from 'fs'
 import axios from 'axios'
 
@@ -81,7 +81,21 @@ async function run(): Promise<void> {
       totalPercentage = calculateOverallScore(output)
 
       if (rott_token !== '') {
-        await axios.post('https://api.rott.dev/api/v1/score', output, {
+        const [organization, repository] = github.repository.split('/')
+        const branchName = github.ref.split('/').pop()
+
+        core.debug(organization)
+        core.debug(repository)
+        core.debug(branchName)
+
+        const payload = {
+          organization,
+          repository,
+          branch: branchName,
+          test: output
+        }
+
+        await axios.post('https://api.rott.dev/api/v1/score', payload, {
           headers: {
             Authorization: `Bearer ${rott_token}`
           }
