@@ -81,7 +81,8 @@ async function run(): Promise<void> {
       totalPercentage = calculateOverallScore(output)
 
       if (rott_token !== '') {
-        const [organization, repository] = context.repo.repo.split('/')
+        const organization = context.repo.owner
+        const repository = context.repo.repo
         const branchName = context.ref.split('/').pop() || ''
 
         core.debug(organization)
