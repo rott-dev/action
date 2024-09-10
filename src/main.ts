@@ -2,7 +2,7 @@
  * The entrypoint for the action.
  */
 import * as core from '@actions/core'
-import { getOctokit, context, github } from '@actions/github'
+import { getOctokit, context } from '@actions/github'
 import fs from 'fs'
 import axios from 'axios'
 
@@ -81,8 +81,8 @@ async function run(): Promise<void> {
       totalPercentage = calculateOverallScore(output)
 
       if (rott_token !== '') {
-        const [organization, repository] = github.repository.split('/')
-        const branchName = github.ref.split('/').pop()
+        const [organization, repository] = context.repo.repo.split('/')
+        const branchName = context.ref.split('/').pop() || ''
 
         core.debug(organization)
         core.debug(repository)
