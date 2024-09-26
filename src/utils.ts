@@ -25,7 +25,7 @@ const calculateOverallScore = (output: []) => {
   console.log(
     `Total score: ${totalScore}/${totalMaxScore} (${totalPercentage}%)`
   )
-  return totalPercentage
+  return { totalPercentage, totalScore, totalMaxScore }
 }
 
 export { regExpFromString, calculateOverallScore }

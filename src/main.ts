@@ -78,7 +78,8 @@ async function run(): Promise<void> {
     // Calculate the total score
     let totalPercentage: string = '0'
     if (output.length > 0) {
-      totalPercentage = calculateOverallScore(output)
+      const overall = calculateOverallScore(output)
+      totalPercentage = overall.totalPercentage
 
       if (rott_token !== '') {
         const organization = context.repo.owner
@@ -93,7 +94,10 @@ async function run(): Promise<void> {
           organization,
           repository,
           branch: branchName,
-          test: output
+          maxScore: overall.totalMaxScore,
+          score: overall.totalScore,
+          percentage: totalPercentage,
+          summary: output
         }
 
         await axios.post('https://api.rott.dev/api/v1/score', payload, {
