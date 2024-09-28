@@ -1,3 +1,5 @@
+const { execSync } = require('child_process')
+
 const regExpFromString = (q: string) => {
   if (q.startsWith('/') && q.endsWith('/')) {
     q = q.slice(1, -1)
@@ -28,4 +30,10 @@ const calculateOverallScore = (output: []) => {
   return { totalPercentage, totalScore, totalMaxScore }
 }
 
-export { regExpFromString, calculateOverallScore }
+const executeGitCommand = (command: string) => {
+  return execSync(command)
+    .toString('utf8')
+    .replace(/[\n\r\s]+$/, '')
+}
+
+export { regExpFromString, calculateOverallScore, executeGitCommand }
