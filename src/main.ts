@@ -7,7 +7,7 @@ import fs from 'fs'
 import axios from 'axios'
 
 import { parseRules } from './parser'
-import { calculateOverallScore, executeGitCommand } from './utils'
+import { calculateOverallScore } from './utils'
 
 async function run(): Promise<void> {
   try {
@@ -85,8 +85,8 @@ async function run(): Promise<void> {
       if (rott_token !== '') {
         const organization = context.repo.owner
         const repository = context.repo.repo
-        const branchName = executeGitCommand('git rev-parse --abbrev-ref HEAD')
-        const commit = executeGitCommand('git rev-parse HEAD')
+        const commit = context.payload.after
+        const branchName = context.ref.split('/').pop() || 'main'
 
         // Get repo information
         const info = await client.request('GET /repos/{owner}/{repo}', {
@@ -100,6 +100,7 @@ async function run(): Promise<void> {
         core.debug(organization)
         core.debug(repository)
         core.debug(branchName)
+        core.debug(commit)
 
         const payload = {
           organization,
