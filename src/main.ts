@@ -28,8 +28,9 @@ async function run(): Promise<void> {
     let output: any = []
     let rules: any = []
 
+    const client = getOctokit(github_token)
+
     if (github_token !== '') {
-      const client = getOctokit(github_token)
       await client
         .request('GET /repos/{owner}/{repo}/contents/{path}', {
           owner: organization,
@@ -85,6 +86,16 @@ async function run(): Promise<void> {
         const organization = context.repo.owner
         const repository = context.repo.repo
         const branchName = context.ref.split('/').pop() || ''
+        const commit = context.sha
+
+        // Get repo information
+        const info = await client.request('GET /repos/{owner}/{repo}', {
+          owner: organization,
+          repo: repository,
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+          }
+        })
 
         core.debug(organization)
         core.debug(repository)
@@ -97,6 +108,9 @@ async function run(): Promise<void> {
           maxScore: overall.totalMaxScore,
           score: overall.totalScore,
           percentage: totalPercentage,
+          private: info.data.private,
+          commit,
+          avatar: info.data.owner.avatar_url,
           summary: output
         }
 
